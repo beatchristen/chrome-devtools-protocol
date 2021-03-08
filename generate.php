@@ -9,7 +9,15 @@ use Nette\PhpGenerator\Method;
 use Nette\PhpGenerator\PhpFile;
 use Symfony\Component\Filesystem\Filesystem;
 
-require_once __DIR__ . "/vendor/autoload.php";
+// Set up autoloader
+if (file_exists($autoloadFile = __DIR__ . '/vendor/autoload.php')
+  || file_exists($autoloadFile = __DIR__ . '/../autoload.php')
+  || file_exists($autoloadFile = __DIR__ . '/../../autoload.php')
+) {
+  include_once($autoloadFile);
+} else {
+  throw new \Exception("Could not locate autoload.php.");
+}
 
 class Util
 {
